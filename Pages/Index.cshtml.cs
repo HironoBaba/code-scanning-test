@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace code_scanning_test.Pages;
 
@@ -15,5 +17,18 @@ public class IndexModel : PageModel
     public void OnGet()
     {
 
+    }
+
+    public void OnPost()
+    {
+        string input = Request.Form["text"];
+        using (SqlConnection connection = new SqlConnection("aaa"))
+        {
+            SqlCommand sqlCommand = new SqlCommand()
+            {
+                CommandText = $"SELECT ProductId FROM Products WHERE ProductName = {input}",
+                CommandType = CommandType.Text,
+            };
+        }
     }
 }
